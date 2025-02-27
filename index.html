@@ -103,7 +103,7 @@
 
             var targetDocument = getTextAsJson('target', 'Target');
             var sourceDocument = getTextAsJson('source', 'Source');
-            var diff = jsonpatch.compare(sourceDocument, targetDocument);
+            var diff = jsonpatch.compare(sourceDocument, targetDocument, true);
             document.getElementById('result').value = JSON.stringify(diff, null, 4);
         };
 
