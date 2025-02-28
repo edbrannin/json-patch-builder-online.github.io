@@ -70,7 +70,30 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
+            <div class="columns">
+                <div class="column">
+                    <a class="button is-primary is-fullwidth" id="test-patch">Click to Test the Patch</a>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Json Patch Result</label>
+                        <div class="control">
+                            <textarea class="textarea" id="test-patch-result" placeholder="Click the button to see the JSON Patch Result..." onfocus="this.select();"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">JSON Patch Details</label>
+                        <div class="control">
+                            <textarea class="textarea" id="test-patch-details" placeholder="Click the button to see the JSON Patch Result..." onfocus="this.select();"></textarea>
+                        </div>
+                    </div>
+                </div>
             </div>
 
 
@@ -105,6 +128,18 @@
             var sourceDocument = getTextAsJson('source', 'Source');
             var diff = jsonpatch.compare(sourceDocument, targetDocument, true);
             document.getElementById('result').value = JSON.stringify(diff, null, 4);
+        };
+
+        var testPatchButton = document.getElementById('test-patch');
+
+        testPatchButton.onclick = function () {
+            document.getElementById('alert-panel').style.display = 'none';
+
+            var sourceDocument = getTextAsJson('source', 'Source');
+            var jsonPatchOperations = getTextAsJson('result', 'JSON Patch');
+            var patchResult = jsonpatch.applyPatch(sourceDocument, jsonPatchOperations);
+            document.getElementById('test-patch-result').value = JSON.stringify(sourceDocument, null, 4);
+            document.getElementById('test-patch-details').value = JSON.stringify(patchResult, null, 4);
         };
 
         function getTextAsJson(elementId, elementLabel) {
